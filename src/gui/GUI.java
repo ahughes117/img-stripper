@@ -30,15 +30,15 @@ public abstract class GUI extends JFrame {
         JPopupMenu popupMenu = new JPopupMenu();
         ActionListener actionListener = new PopupActionListener(aTf);
         // Cut
-        JMenuItem cutMenuItem = new JMenuItem("Αποκοπή");
+        JMenuItem cutMenuItem = new JMenuItem("Cut");
         cutMenuItem.addActionListener(actionListener);
         popupMenu.add(cutMenuItem);
         // Copy
-        JMenuItem copyMenuItem = new JMenuItem("Αντιγραφή");
+        JMenuItem copyMenuItem = new JMenuItem("Copy");
         copyMenuItem.addActionListener(actionListener);
         popupMenu.add(copyMenuItem);
         // Paste
-        JMenuItem pasteMenuItem = new JMenuItem("Επικόλληση");
+        JMenuItem pasteMenuItem = new JMenuItem("Paste");
         pasteMenuItem.addActionListener(actionListener);
         popupMenu.add(pasteMenuItem);
 
@@ -51,15 +51,15 @@ public abstract class GUI extends JFrame {
         JPopupMenu popupMenu = new JPopupMenu();
         ActionListener actionListener = new PopupActionListener(aTa);
         // Cut
-        JMenuItem cutMenuItem = new JMenuItem("Αποκοπή");
+        JMenuItem cutMenuItem = new JMenuItem("Cut");
         cutMenuItem.addActionListener(actionListener);
         popupMenu.add(cutMenuItem);
         // Copy
-        JMenuItem copyMenuItem = new JMenuItem("Αντιγραφή");
+        JMenuItem copyMenuItem = new JMenuItem("Copy");
         copyMenuItem.addActionListener(actionListener);
         popupMenu.add(copyMenuItem);
         // Paste
-        JMenuItem pasteMenuItem = new JMenuItem("Επικόλληση");
+        JMenuItem pasteMenuItem = new JMenuItem("Paste");
         pasteMenuItem.addActionListener(actionListener);
         popupMenu.add(pasteMenuItem);
 
@@ -84,21 +84,21 @@ class PopupActionListener implements ActionListener {
     }
 
     public void actionPerformed(ActionEvent actionEvent) {
-        if (actionEvent.getActionCommand().equals("Αποκοπή")) {
+        if (actionEvent.getActionCommand().equals("Cut")) {
             if (tf != null) {
                 tf.cut();
             } else {
                 ta.cut();
             }
         }
-        if (actionEvent.getActionCommand().equals("Αντιγραφή")) {
+        if (actionEvent.getActionCommand().equals("Copy")) {
             if (tf != null) {
                 tf.copy();
             } else {
                 ta.copy();
             }
         }
-        if (actionEvent.getActionCommand().equals("Επικόλληση")) {
+        if (actionEvent.getActionCommand().equals("Paste")) {
             if (tf != null) {
                 tf.paste();
             } else {
