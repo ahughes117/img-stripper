@@ -1,6 +1,13 @@
 
 package gui;
 
+import java.io.File;
+import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import javax.swing.JFileChooser;
+import util.MesDial;
+
 /**
  * The Main Frame of the application
  * 
@@ -44,18 +51,22 @@ public class MainFrame extends GUI {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Image Stripper");
-        setBackground(new java.awt.Color(48, 0, 81));
-        setUndecorated(true);
+        setAutoRequestFocus(false);
 
         jPanel1.setBorder(javax.swing.BorderFactory.createTitledBorder("Image Stripper"));
 
         jPanel2.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         quitBtn.setText("Quit");
+        quitBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                quitBtnActionPerformed(evt);
+            }
+        });
 
         stripBtn.setText("Strip!");
 
-        exportBtn.setText("Export");
+        exportBtn.setText("Export Tags");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -65,7 +76,7 @@ public class MainFrame extends GUI {
                 .addContainerGap()
                 .addComponent(stripBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 80, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addComponent(quitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
@@ -84,6 +95,11 @@ public class MainFrame extends GUI {
         jPanel3.setBorder(javax.swing.BorderFactory.createEtchedBorder());
 
         browseBtn.setText("Browse");
+        browseBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                browseBtnActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
         jPanel3.setLayout(jPanel3Layout);
@@ -106,11 +122,6 @@ public class MainFrame extends GUI {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        filelist.setModel(new javax.swing.AbstractListModel() {
-            String[] strings = { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
-            public int getSize() { return strings.length; }
-            public Object getElementAt(int i) { return strings[i]; }
-        });
         jScrollPane1.setViewportView(filelist);
 
         exifArea.setColumns(20);
@@ -193,6 +204,24 @@ public class MainFrame extends GUI {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void quitBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_quitBtnActionPerformed
+        System.exit(0);
+    }//GEN-LAST:event_quitBtnActionPerformed
+
+    private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
+        JFileChooser fc = new JFileChooser();
+        fc.showOpenDialog(this);
+        
+        try {
+            if (fc.getSelectedFile() != null) {
+                fileF.setText(fc.getSelectedFile().getCanonicalPath());
+            }
+        } catch (IOException ex) {
+            MesDial.fileError(this);
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }//GEN-LAST:event_browseBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseBtn;

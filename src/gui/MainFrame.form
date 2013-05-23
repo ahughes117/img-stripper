@@ -4,10 +4,7 @@
   <Properties>
     <Property name="defaultCloseOperation" type="int" value="3"/>
     <Property name="title" type="java.lang.String" value="Image Stripper"/>
-    <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
-      <Color blue="51" green="0" red="30" type="rgb"/>
-    </Property>
-    <Property name="undecorated" type="boolean" value="true"/>
+    <Property name="autoRequestFocus" type="boolean" value="false"/>
   </Properties>
   <SyntheticProperties>
     <SyntheticProperty name="formSizePolicy" type="int" value="1"/>
@@ -111,7 +108,7 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="stripBtn" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="exportBtn" min="-2" pref="80" max="-2" attributes="0"/>
+                      <Component id="exportBtn" min="-2" pref="111" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
                       <Component id="quitBtn" min="-2" pref="89" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
@@ -137,6 +134,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Quit"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="quitBtnActionPerformed"/>
+              </Events>
             </Component>
             <Component class="javax.swing.JButton" name="stripBtn">
               <Properties>
@@ -145,7 +145,7 @@
             </Component>
             <Component class="javax.swing.JButton" name="exportBtn">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Export"/>
+                <Property name="text" type="java.lang.String" value="Export Tags"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -191,6 +191,9 @@
               <Properties>
                 <Property name="text" type="java.lang.String" value="Browse"/>
               </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="browseBtnActionPerformed"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -204,13 +207,7 @@
             <Component class="javax.swing.JList" name="filelist">
               <Properties>
                 <Property name="model" type="javax.swing.ListModel" editor="org.netbeans.modules.form.editors2.ListModelEditor">
-                  <StringArray count="5">
-                    <StringItem index="0" value="Item 1"/>
-                    <StringItem index="1" value="Item 2"/>
-                    <StringItem index="2" value="Item 3"/>
-                    <StringItem index="3" value="Item 4"/>
-                    <StringItem index="4" value="Item 5"/>
-                  </StringArray>
+                  <StringArray count="0"/>
                 </Property>
               </Properties>
             </Component>
