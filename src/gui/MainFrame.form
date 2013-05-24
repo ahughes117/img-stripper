@@ -108,8 +108,10 @@
                       <EmptySpace max="-2" attributes="0"/>
                       <Component id="stripBtn" min="-2" pref="78" max="-2" attributes="0"/>
                       <EmptySpace type="separate" max="-2" attributes="0"/>
-                      <Component id="exportBtn" min="-2" pref="111" max="-2" attributes="0"/>
+                      <Component id="rmBtn" min="-2" max="-2" attributes="0"/>
                       <EmptySpace max="32767" attributes="0"/>
+                      <Component id="exportBtn" min="-2" pref="111" max="-2" attributes="0"/>
+                      <EmptySpace type="separate" max="-2" attributes="0"/>
                       <Component id="quitBtn" min="-2" pref="89" max="-2" attributes="0"/>
                       <EmptySpace max="-2" attributes="0"/>
                   </Group>
@@ -123,6 +125,7 @@
                           <Component id="quitBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="stripBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="exportBtn" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="rmBtn" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="14" max="32767" attributes="0"/>
                   </Group>
@@ -146,6 +149,14 @@
             <Component class="javax.swing.JButton" name="exportBtn">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Export Tags"/>
+              </Properties>
+              <Events>
+                <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="exportBtnActionPerformed"/>
+              </Events>
+            </Component>
+            <Component class="javax.swing.JButton" name="rmBtn">
+              <Properties>
+                <Property name="text" type="java.lang.String" value="Remove from List"/>
               </Properties>
             </Component>
           </SubComponents>
@@ -210,6 +221,9 @@
                   <StringArray count="0"/>
                 </Property>
               </Properties>
+              <Events>
+                <EventHandler event="valueChanged" listener="javax.swing.event.ListSelectionListener" parameters="javax.swing.event.ListSelectionEvent" handler="filelistValueChanged"/>
+              </Events>
             </Component>
           </SubComponents>
         </Container>
@@ -251,7 +265,7 @@
               <Group type="102" alignment="0" attributes="0">
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="footerL" min="-2" max="-2" attributes="0"/>
-                  <EmptySpace max="32767" attributes="0"/>
+                  <EmptySpace pref="20" max="32767" attributes="0"/>
               </Group>
           </Group>
         </DimensionLayout>

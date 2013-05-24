@@ -1,26 +1,38 @@
-
 package gui;
 
-import java.io.File;
+import img_stripper.FileIO;
 import java.io.IOException;
+import java.util.TreeSet;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
+import javax.swing.JList;
+import javax.swing.ListSelectionModel;
+import javax.swing.event.ListSelectionEvent;
 import util.MesDial;
 
 /**
  * The Main Frame of the application
- * 
+ *
  * @author Alex Hughes <alexhughes117@gmail.com>
  */
 public class MainFrame extends GUI {
+
+    private DefaultListModel listModel;
+    private TreeSet<String> fileT;
 
     /**
      * Creates new form MainFrame
      */
     public MainFrame() {
         initComponents();
-        
+
+        //initialising list
+        filelist.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
+        filelist.setLayoutOrientation(JList.VERTICAL);
+        listModel = new DefaultListModel();
+
         super.setFrameLocationCenter(this);
         this.setVisible(true);
     }
@@ -39,6 +51,7 @@ public class MainFrame extends GUI {
         quitBtn = new javax.swing.JButton();
         stripBtn = new javax.swing.JButton();
         exportBtn = new javax.swing.JButton();
+        rmBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         fileF = new javax.swing.JTextField();
         browseBtn = new javax.swing.JButton();
@@ -67,6 +80,13 @@ public class MainFrame extends GUI {
         stripBtn.setText("Strip!");
 
         exportBtn.setText("Export Tags");
+        exportBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                exportBtnActionPerformed(evt);
+            }
+        });
+
+        rmBtn.setText("Remove from List");
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -76,8 +96,10 @@ public class MainFrame extends GUI {
                 .addContainerGap()
                 .addComponent(stripBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 78, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
-                .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(rmBtn)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(exportBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 111, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(18, 18, 18)
                 .addComponent(quitBtn, javax.swing.GroupLayout.PREFERRED_SIZE, 89, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap())
         );
@@ -88,7 +110,8 @@ public class MainFrame extends GUI {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(quitBtn)
                     .addComponent(stripBtn)
-                    .addComponent(exportBtn))
+                    .addComponent(exportBtn)
+                    .addComponent(rmBtn))
                 .addContainerGap(14, Short.MAX_VALUE))
         );
 
@@ -122,6 +145,11 @@ public class MainFrame extends GUI {
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
+        filelist.addListSelectionListener(new javax.swing.event.ListSelectionListener() {
+            public void valueChanged(javax.swing.event.ListSelectionEvent evt) {
+                filelistValueChanged(evt);
+            }
+        });
         jScrollPane1.setViewportView(filelist);
 
         exifArea.setColumns(20);
@@ -172,7 +200,7 @@ public class MainFrame extends GUI {
             .addGroup(footerPanelLayout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(footerL)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(20, Short.MAX_VALUE))
         );
         footerPanelLayout.setVerticalGroup(
             footerPanelLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -212,16 +240,45 @@ public class MainFrame extends GUI {
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
         JFileChooser fc = new JFileChooser();
         fc.showOpenDialog(this);
-        
+
         try {
             if (fc.getSelectedFile() != null) {
                 fileF.setText(fc.getSelectedFile().getCanonicalPath());
+                listModel.addElement(fc.getSelectedFile().getName());
+                filelist.setModel(listModel);
+
             }
         } catch (IOException ex) {
             MesDial.fileError(this);
             Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, ex);
         }
     }//GEN-LAST:event_browseBtnActionPerformed
+
+    private void filelistValueChanged(javax.swing.event.ListSelectionEvent evt) {//GEN-FIRST:event_filelistValueChanged
+        //if no item is selected
+        if (filelist.getSelectedIndex() == -1) {
+            exifArea.setText("");
+        } else {
+            //TODO: read the metadata of the selected picture
+            exifArea.setText((String) filelist.getSelectedValue());
+        }
+    }//GEN-LAST:event_filelistValueChanged
+
+    private void exportBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_exportBtnActionPerformed
+        String content = exifArea.getText();
+        
+        JFileChooser fc = new JFileChooser();
+        fc.showSaveDialog(this);
+        
+        try {
+            if (fc.getSelectedFile() != null) {
+                FileIO.exportTags(fc.getName(null), content);
+            }
+        } catch (IOException x) {
+            MesDial.fileError(this);
+            Logger.getLogger(MainFrame.class.getName()).log(Level.SEVERE, null, x);
+        }
+    }//GEN-LAST:event_exportBtnActionPerformed
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton browseBtn;
@@ -237,6 +294,7 @@ public class MainFrame extends GUI {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JButton quitBtn;
+    private javax.swing.JButton rmBtn;
     private javax.swing.JButton stripBtn;
     // End of variables declaration//GEN-END:variables
 }

@@ -1,8 +1,6 @@
 package img_stripper;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.IOException;
+import java.io.*;
 
 /**
  * A helper class for file input and output.
@@ -34,5 +32,18 @@ public class FileIO {
             }
         }
         return data;
+    }
+    
+    /**
+     * Writes a String into a File, using utf-8 encoding
+     * 
+     * @param aFileName
+     * @param aContent
+     * @throws IOException 
+     */
+    public static void exportTags(String aFileName, String aContent) throws IOException {
+        BufferedWriter fr = new BufferedWriter(new OutputStreamWriter(new FileOutputStream(aFileName), "UTF8"));
+        fr.write(aContent);
+        fr.close();
     }
 }
