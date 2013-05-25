@@ -24,6 +24,7 @@ public class CustomChooser {
 
         if (aChooser.equalsIgnoreCase("open")) {
             openChooser = new JFileChooser();
+            openChooser.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
             openChooser.setAcceptAllFileFilterUsed(false);
             openChooser.addChoosableFileFilter(new CustomFilter());
 

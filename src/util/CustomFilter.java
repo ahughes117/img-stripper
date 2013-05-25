@@ -5,7 +5,8 @@ import java.io.File;
 import javax.swing.filechooser.FileFilter;
 
 /**
- *
+ * The class for filtering input files in CustomChooser
+ * 
  * @author Alex Hughes
  */
 public class CustomFilter extends FileFilter {
@@ -18,11 +19,12 @@ public class CustomFilter extends FileFilter {
 
         String extension = this.getExtension(f);
         if (extension != null) {
-            if (extension.equalsIgnoreCase("jpg") || 
-                    extension.equalsIgnoreCase("gif") ||
-                    extension.equalsIgnoreCase("tiff") ||
-                    extension.equalsIgnoreCase("bmp") ||
-                    extension.equalsIgnoreCase("png")
+            if (extension.equalsIgnoreCase("jpg") 
+                    || extension.equalsIgnoreCase("gif")
+                    || extension.equalsIgnoreCase("tiff")
+                    || extension.equalsIgnoreCase("bmp") 
+                    || extension.equalsIgnoreCase("tif") 
+                    || extension.equalsIgnoreCase("png")
                 ) {
                 return true;
             } else {
@@ -34,10 +36,14 @@ public class CustomFilter extends FileFilter {
 
     @Override
     public String getDescription() {
-        //throw new UnsupportedOperationException("Not supported yet.");
-        return ".txt";
+        return "Image Files (png, jpg, bmp, tiff, gif)";
     }
 
+    /**
+     * Returns the extension of a file
+     * @param aFile
+     * @return 
+     */
     private String getExtension(File aFile) {
         String ext = null;
         String s = aFile.getName();

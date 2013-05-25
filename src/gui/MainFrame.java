@@ -9,7 +9,7 @@ import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JList;
 import javax.swing.ListSelectionModel;
-import javax.swing.event.ListSelectionEvent;
+import util.CustomChooser;
 import util.MesDial;
 
 /**
@@ -238,13 +238,12 @@ public class MainFrame extends GUI {
     }//GEN-LAST:event_quitBtnActionPerformed
 
     private void browseBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_browseBtnActionPerformed
-        JFileChooser fc = new JFileChooser();
-        fc.showOpenDialog(this);
-
+        CustomChooser fc = new CustomChooser(this, "open");
+        
         try {
-            if (fc.getSelectedFile() != null) {
-                fileF.setText(fc.getSelectedFile().getCanonicalPath());
-                listModel.addElement(fc.getSelectedFile().getName());
+            if (fc.getFile() != null) {
+                fileF.setText(fc.getFile().getCanonicalPath());
+                listModel.addElement(fc.getFile().getName());
                 filelist.setModel(listModel);
 
             }
